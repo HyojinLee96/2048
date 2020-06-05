@@ -57,13 +57,14 @@ class App extends Component {
     newBoard[coordinate[0]][coordinate[1]] = twoOrFour;
     this.setState({
       board: newBoard,
+      score: this.state.score + twoOrFour,
     });
   };
 
   render() {
     return (
       <div className='App'>
-        <button>GameStart</button>
+        <button onClick={this.placeCell}>GameStart</button>
         <div>Score:{this.state.score}</div>
         <table>
           {this.state.board.map((row, i) => (
