@@ -1,6 +1,6 @@
 import React from "react";
 import Cell from "./Cell";
-import uuid from "uuid";
+import { uuid } from "uuidv4";
 
 const Row = ({ row }) => {
   return (

@@ -21,6 +21,8 @@ class App extends Component {
     this.setState({ board: board });
   };
 
+
+
   randomNumberGenerator = () => {
     const startNumber = [2, 4];
     return startNumber[Math.floor(Math.random() * startNumber.length)];
@@ -48,6 +50,7 @@ class App extends Component {
 
     return board;
   };
+
 
   componentDidMount() {
     document.body.addEventListener("keydown", this.keyPressed);
