@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { uuid } from "uuidv4";
 import "./App.css";
-import Row from "./components/Row";
+import Row from "./Row";
+import LodingAni from "./LodingAni";
+import StartBtn from "./StartBtn";
 
 class App extends Component {
   state = {
@@ -9,6 +11,7 @@ class App extends Component {
     score: 0,
   };
 
+  // 두 개의 랜덤 좌표로 보드 생성
   init = () => {
     let board = [
       [0, 0, 0, 0],
@@ -24,6 +27,7 @@ class App extends Component {
     this.setState({ board, score });
   };
 
+  // 랜덤하게 시작 번호 뽑기
   randomNumberGenerator = () => {
     // // 수정 전
     // const startNumber = [2, 4];
@@ -33,6 +37,7 @@ class App extends Component {
     return Math.random() > 0.75 ? 4 : 2;
   };
 
+  // 보드에서 빈 좌표 찾기
   findEmptyCell = (board) => {
     const emptyCell = [];
 
@@ -47,6 +52,7 @@ class App extends Component {
     return emptyCell;
   };
 
+  // 랜덤하게 뽑은 시작 번호 빈 좌표에 배치
   randomCoordinate = (board) => {
     const emptyCell = this.findEmptyCell(board);
     const coordinate = emptyCell[Math.floor(Math.random() * emptyCell.length)];
@@ -103,11 +109,9 @@ class App extends Component {
   render() {
     return (
       <div className='App' onKeyPress={this.keyPressed}>
-        <button onClick={() => this.init()}>New Game</button>
-        <button onClick={() => this.addNewNumber(this.state.board)}>
-          add one
-        </button>
-        <div>Score:{this.state.score}</div>
+        <StartBtn onClickEvent={this.init} />
+        <LodingAni />
+        <div className='score'>Score : {this.state.score}</div>
         <table>
           {this.state.board &&
             this.state.board.map((row, i) => <Row key={uuid()} row={row} />)}
