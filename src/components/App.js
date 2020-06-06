@@ -11,7 +11,6 @@ class App extends Component {
     score: 0,
   };
 
-  // 두 개의 랜덤 좌표로 보드 생성
   init = () => {
     let board = [
       [0, 0, 0, 0],
@@ -27,17 +26,10 @@ class App extends Component {
     this.setState({ board, score });
   };
 
-  // 랜덤하게 시작 번호 뽑기
   randomNumberGenerator = () => {
-    // // 수정 전
-    // const startNumber = [2, 4];
-    // return startNumber[Math.floor(Math.random() * startNumber.length)];
-
-    // 수정 후
     return Math.random() > 0.75 ? 4 : 2;
   };
 
-  // 보드에서 빈 좌표 찾기
   findEmptyCell = (board) => {
     const emptyCell = [];
 
@@ -52,7 +44,6 @@ class App extends Component {
     return emptyCell;
   };
 
-  // 랜덤하게 뽑은 시작 번호 빈 좌표에 배치
   randomCoordinate = (board) => {
     const emptyCell = this.findEmptyCell(board);
     const coordinate = emptyCell[Math.floor(Math.random() * emptyCell.length)];
@@ -68,11 +59,6 @@ class App extends Component {
     // mount될시 init실행
     this.init();
   }
-
-  // // componentDidMount에서 변경되어서 필요없어짐.
-  // keyPressed = (e) => {
-  //   this.moveCells(e.keyCode);
-  // };
 
   // 약간 맘에 안듬
   addNewNumber = () => {
@@ -91,24 +77,45 @@ class App extends Component {
   };
 
   moveCells = (e) => {
-    if (e.keyCode === 37) {
-      // left key pressed
-      console.log("left key pressed!");
-    } else if (e.keyCode === 38) {
-      // up key pressed
-      console.log("up key pressed!");
-    } else if (e.keyCode === 39) {
-      // right key pressed
-      console.log("right key pressed!");
-    } else if (e.keyCode === 40) {
-      // down key pressed
-      console.log("down key pressed!");
+    if (e.keyCode >= 37 && e.keyCode <= 40) {
+      const currentBoard = [[], [], [], []];
+      if (e.keyCode === 37) {
+        for (let i = 0; i < this.state.board.length; i++) {
+          for (let j = 0; j < this.state.board.length - 1; j++) {
+            if (this.state.board[i][j] === this.state.board[i][j + 1]) {
+              currentBoard[i].push(
+                this.state.board[i][j] + this.state.board[i][j + 1]
+              );
+              j++;
+            }
+          }
+        }
+      } else if (e.keyCode === 38) {
+        // up key pressed
+        console.log("up key pressed!");
+      } else if (e.keyCode === 39) {
+        // right key pressed
+        console.log("right key pressed!");
+      } else if (e.keyCode === 40) {
+        // down key pressed
+        console.log("down key pressed!");
+      }
     }
+    // this.setState({ board: currentBoard });
+  };
+
+  dummyFunc = () => {
+    this.setState((prevState) => console.log(prevState.board));
+    this.setState((prevState) => {
+      prevState.board[0][0] = 100;
+      return { board: prevState.board };
+    });
   };
 
   render() {
     return (
       <div className='App' onKeyPress={this.keyPressed}>
+        <button onClick={this.dummyFunc}>testing Dummy</button>
         <button onClick={this.addNewNumber}>못생긴버튼</button>
         <StartBtn onClickEvent={this.init} />
         <LodingAni />
