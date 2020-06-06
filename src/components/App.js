@@ -109,6 +109,7 @@ class App extends Component {
   render() {
     return (
       <div className='App' onKeyPress={this.keyPressed}>
+        <button onClick={this.addNewNumber}>못생긴버튼</button>
         <StartBtn onClickEvent={this.init} />
         <LodingAni />
         <div className='score'>Score : {this.state.score}</div>
