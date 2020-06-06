@@ -80,6 +80,7 @@ class App extends Component {
     if (e.keyCode >= 37 && e.keyCode <= 40) {
       const currentBoard = [[], [], [], []];
       if (e.keyCode === 37) {
+
         const [firstRow, secondRow, thirdRow, fourthRow] = this.state.board;
         const firstRowFiltered = firstRow.filter((tile) => tile > 0);
         const secondRowFiltered = secondRow.filter((tile) => tile > 0);
@@ -136,26 +137,51 @@ class App extends Component {
             });
           }
         }
-      }
-    } else if (e.keyCode === 38) {
-      // up key pressed
-      console.log("up key pressed!");
-    } else if (e.keyCode === 39) {
-      // right key pressed
-      console.log("right key pressed!");
-    } else if (e.keyCode === 40) {
-      // down key pressed
-      console.log("down key pressed!");
-    }
-    // this.setState({ board: currentBoard });
-  };
 
-  dummyFunc = () => {
-    this.setState((prevState) => console.log(prevState.board));
-    this.setState((prevState) => {
-      prevState.board[0][0] = 100;
-      return { board: prevState.board };
-    });
+        for (let i = 0; i < this.state.board.length; i++) {
+          let count = 0;
+          for (let j = 0; j < this.state.board.length; j++) {
+            if(this.state.board[i][j]){
+              console.log(this.state.board)
+              if (currentBoard[i][currentBoard[i][count]] && 
+                currentBoard[i][currentBoard[i][count]] === this.state.board[i][j]) {
+                  currentBoard[i][currentBoard[i][count]] *= 2;
+                  count++;
+              }else {
+                currentBoard[i].push(this.state.board[i][j]);
+              }
+            } 
+          }
+        }
+        let newBoard = [[], [], [], []];
+        for(let i = 0; i < 4; i++){
+          for(let j = 0; j < 4; j++){
+            if (currentBoard[i][j] !== undefined) {
+              newBoard[i][j] = currentBoard[i][j]
+            } else {
+              newBoard[i][j] = 0
+            }
+            this.setState({
+              board: newBoard
+            });
+          }
+        }
+        console.log(this.state.board)
+      } else if (e.keyCode === 38) {
+        // up key pressed
+        console.log("up key pressed!");
+      } else if (e.keyCode === 39) {
+        // right key pressed
+        console.log("right key pressed!");
+      } else if (e.keyCode === 40) {
+        // down key pressed
+        console.log("down key pressed!");
+
+
+  dummyFunc = (current) => {
+    // this.setState((prevState) => {
+    //   prevState.board[i][j] = current || 0
+    // });
   };
 
   render() {
