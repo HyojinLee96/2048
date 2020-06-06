@@ -1,0 +1,105 @@
+:root {
+  --bg: rgb(57, 66, 85);
+  --primary: #78FFCD;
+  --solid: #fff;
+  --btn-w: 10em;
+  --dot-w: calc(var(--btn-w)*.2);
+  --tr-X: calc(var(--btn-w) - var(--dot-w));
+}
+
+* {box-sizing: border-box;}
+*:before, *:after {box-sizing: border-box;}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap;
+  background: var(--bg);
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.App {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.container.active ~ table {
+  display: inline-block;
+}
+
+table {
+  display: none;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  z-index: 1;
+  transform: translateX(-50%);
+  background: #fff;
+  padding: 1%;
+  border-radius: 5px;
+}
+
+.row {display: flex;}
+
+.row + .row {margin-top: 2.5%;}
+
+.cell {
+  height: 100px;
+  width: 100px;
+  background-color: rgb(97, 112, 145);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell + .cell {margin-left: 2.5%;}
+
+.cell.currentCell {background: rgb(253, 255, 147);}
+
+.cellValue {
+  color: rgb(69, 67, 65);
+  font-size: 35px;
+  font-weight: 600;
+}
+
+
+/* score */
+
+.score {
+  background: white;
+  padding: 1%;
+  border-radius: 4px;
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  font-size: 25px;
+}
+
+.score:before {
+  animation: sparkle 4s infinite linear;
+  background: linear-gradient(90deg, #7FEFBD 0%, #FFF689 11%, #EC0B43 22%, #7FEFBD 33%, #FFF689 44%, #EC0B43 55%, #7FEFBD 66%, #FFF689 77%, #EC0B43 88%, #7FEFBD 100%);
+  background-size: 300% 100%;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  filter: blur(3px);
+  z-index: -1;
+  transform: scale(0.99) translateY(3px);
+}
+
+@keyframes sparkle {
+  from {
+    background-position: 0% 100%;
+  }
+  to {
+    background-position: 200% 100%;
+  }
+}
