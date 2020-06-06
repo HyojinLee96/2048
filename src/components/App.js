@@ -81,15 +81,34 @@ class App extends Component {
       const currentBoard = [[], [], [], []];
       if (e.keyCode === 37) {
         for (let i = 0; i < this.state.board.length; i++) {
-          for (let j = 0; j < this.state.board.length - 1; j++) {
-            if (this.state.board[i][j] === this.state.board[i][j + 1]) {
-              currentBoard[i].push(
-                this.state.board[i][j] + this.state.board[i][j + 1]
-              );
-              j++;
-            }
+          let count = 0;
+          for (let j = 0; j < this.state.board.length; j++) {
+            if(this.state.board[i][j]){
+              console.log(this.state.board)
+              if (currentBoard[i][currentBoard[i][count]] && 
+                currentBoard[i][currentBoard[i][count]] === this.state.board[i][j]) {
+                  currentBoard[i][currentBoard[i][count]] *= 2;
+                  count++;
+              }else {
+                currentBoard[i].push(this.state.board[i][j]);
+              }
+            } 
           }
         }
+        let newBoard = [[], [], [], []];
+        for(let i = 0; i < 4; i++){
+          for(let j = 0; j < 4; j++){
+            if (currentBoard[i][j] !== undefined) {
+              newBoard[i][j] = currentBoard[i][j]
+            } else {
+              newBoard[i][j] = 0
+            }
+            this.setState({
+              board: newBoard
+            });
+          }
+        }
+        console.log(this.state.board)
       } else if (e.keyCode === 38) {
         // up key pressed
         console.log("up key pressed!");
@@ -104,12 +123,10 @@ class App extends Component {
     // this.setState({ board: currentBoard });
   };
 
-  dummyFunc = () => {
-    this.setState((prevState) => console.log(prevState.board));
-    this.setState((prevState) => {
-      prevState.board[0][0] = 100;
-      return { board: prevState.board };
-    });
+  dummyFunc = (current) => {
+    // this.setState((prevState) => {
+    //   prevState.board[i][j] = current || 0
+    // });
   };
 
   render() {
