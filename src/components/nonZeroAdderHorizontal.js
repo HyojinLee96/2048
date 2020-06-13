@@ -6,21 +6,24 @@ const nonZeroAdderHorizontal = (prevBoard, direction) => {
   const thirdRowFiltered = thirdRow.filter((tile) => tile > 0);
   const fourthRowFiltered = fourthRow.filter((tile) => tile > 0);
 
-  const filterAndAdd = (row, rowNum) => {
-    for (let i = 0; i < row.length; i++) {
-      if (row[i] === row[i + 1]) {
-        currentBoard[rowNum].push(row[i] * 2);
-        i++;
-      } else if (row[i]) {
-        currentBoard[rowNum].push(row[i]);
+  const filterAndAdd = (row, rowNum, direction) => {
+    if (direction === "left") {
+      for (let i = 0; i < row.length; i++) {
+        if (row[i] === row[i + 1]) {
+          currentBoard[rowNum].push(row[i] * 2);
+          i++;
+        } else if (row[i]) {
+          currentBoard[rowNum].push(row[i]);
+        }
       }
+    } else if (direction === "right") {
     }
   };
   if (direction === "left") {
-    filterAndAdd(firstRowFiltered, 0);
-    filterAndAdd(secondRowFiltered, 1);
-    filterAndAdd(thirdRowFiltered, 2);
-    filterAndAdd(fourthRowFiltered, 3);
+    filterAndAdd(firstRowFiltered, 0, direction);
+    filterAndAdd(secondRowFiltered, 1, direction);
+    filterAndAdd(thirdRowFiltered, 2, direction);
+    filterAndAdd(fourthRowFiltered, 3, direction);
     // for (let i = 0; i < firstRowFiltered.length; i++) {
     //   if (firstRowFiltered[i] === firstRowFiltered[i + 1]) {
     //     currentBoard[0].push(firstRowFiltered[i] * 2);
@@ -29,6 +32,13 @@ const nonZeroAdderHorizontal = (prevBoard, direction) => {
     //     currentBoard[0].push(firstRowFiltered[i]);
     //   }
     // }
+  }
+
+  if (direction === "right") {
+    filterAndAdd(firstRowFiltered, 0, direction);
+    filterAndAdd(secondRowFiltered, 1, direction);
+    filterAndAdd(thirdRowFiltered, 2, direction);
+    filterAndAdd(fourthRowFiltered, 3, direction);
   }
 
   let newBoard = [[], [], [], []];

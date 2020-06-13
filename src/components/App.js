@@ -5,6 +5,7 @@ import Row from "./Row";
 import LodingAni from "./LodingAni";
 import StartBtn from "./StartBtn";
 import nonZeroAdderLeft from "./nonZeroAdderHorizontal";
+import nonZeroAdderVertical from "./nonZeroAdderVertical";
 
 class App extends Component {
   state = {
@@ -85,16 +86,18 @@ class App extends Component {
         this.setState({
           board: newBoard,
         });
+      } else if (e.keyCode === 38) {
+        // up key pressed
+        const newBoard = nonZeroAdderVertical(this.state.board);
+        this.setState({
+          board: newBoard,
+        });
+      } else if (e.keyCode === 39) {
+        // right key pressed
+        console.log("right key pressed!");
+      } else if (e.keyCode === 40) {
+        // down key pressed
       }
-    } else if (e.keyCode === 38) {
-      // up key pressed
-      console.log("up key pressed!");
-    } else if (e.keyCode === 39) {
-      // right key pressed
-      console.log("right key pressed!");
-    } else if (e.keyCode === 40) {
-      // down key pressed
-      console.log("down key pressed!");
     }
     // this.setState({ board: currentBoard });
   };
