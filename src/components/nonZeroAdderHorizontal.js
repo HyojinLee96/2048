@@ -9,51 +9,62 @@ const nonZeroAdderHorizontal = (prevBoard, direction) => {
   const thirdRowFiltered = thirdRow.filter((tile) => tile > 0);
   const fourthRowFiltered = fourthRow.filter((tile) => tile > 0);
 
-  // 현재 칸과 다음 칸이 같은 숫자면 제곱으로 계산 후 넣고, 그게 아닌 경우(if가 아니면서 숫자가 있는 경우)는 그냥 넣기
-
-  // rowNum의 필요성은 currentBoard에 첫째 칸, 둘째 칸을 구별하기 위해서 사용하는건가요 필립님!?!?!?!???
-  const filterAndAdd = (row, rowNum) => {
-    for (let i = 0; i < row.length; i++) {
-      if (row[i] === row[i + 1]) {
-        currentBoard[rowNum].push(row[i] * 2);
-        i++;
-      } else if (row[i]) {
-        currentBoard[rowNum].push(row[i]);
+  const filterAndAdd = (row, rowNum, direction) => {
+    if (direction === "left") {
+      for (let i = 0; i < row.length; i++) {
+        if (row[i] === row[i + 1]) {
+          currentBoard[rowNum].push(row[i] * 2);
+          i++;
+        } else if (row[i]) {
+          currentBoard[rowNum].push(row[i]);
+        }
+      }
+    } else if (direction === "right") {
+      for (let i = row.length - 1; i <= 0; i--) {
+        if (row[i] === row[i - 1]) {
+          currentBoard[rowNum].unshift(row[i] * 2);
+          i--;
+        } else if (row[i]) {
+          currentBoard[rowNum].unshift(row[i]);
+        }
       }
     }
   };
 
   // 왼쪽을 눌렀을 경우
   if (direction === "left") {
-    // 배열의 0부터 3까지 체크
-    filterAndAdd(firstRowFiltered, 0);
-    filterAndAdd(secondRowFiltered, 1);
-    filterAndAdd(thirdRowFiltered, 2);
-    filterAndAdd(fourthRowFiltered, 3);
-    // for (let i = 0; i < firstRowFiltered.length; i++) {
-    //   if (firstRowFiltered[i] === firstRowFiltered[i + 1]) {
-    //     currentBoard[0].push(firstRowFiltered[i] * 2);
-    //     i++;
-    //   } else if (firstRowFiltered[i]) {
-    //     currentBoard[0].push(firstRowFiltered[i]);
-    //   }
-    // }
+    filterAndAdd(firstRowFiltered, 0, direction);
+    filterAndAdd(secondRowFiltered, 1, direction);
+    filterAndAdd(thirdRowFiltered, 2, direction);
+    filterAndAdd(fourthRowFiltered, 3, direction);
   }
 
-  let newBoard = [[], [], [], []];
+  if (direction === "right") {
+    filterAndAdd(firstRowFiltered, 0, direction);
+    filterAndAdd(secondRowFiltered, 1, direction);
+    filterAndAdd(thirdRowFiltered, 2, direction);
+    filterAndAdd(fourthRowFiltered, 3, direction);
+  }
+
 
   // 위에서 걸러진 currentBoard를 this.state.board에 재할당 해줄 newBoard에 넣는데 값이 있으면 넣고 없다면 0을 넣는다.
-  for (let i = 0; i < 4; i++) {
-    for (let j = 0; j < 4; j++) {
-      if (currentBoard[i][j] !== undefined) {
-        newBoard[i][j] = currentBoard[i][j];
-      } else {
-        newBoard[i][j] = 0;
-      }
+  // 왼쪽을 눌렀을 때 보드의 앞쪽에 currentBoard[i][j] 숫자를 넣고 나머지는 0을 넣는다.
+  // 오른쪽을 눌렀을 때에는 보드의 앞쪽에 0을 넣고 뒷쪽에 currentBoard[i][j] 숫자를 넣는다.
+  for (let i = 0; i < currentBoard.length; i++) {
+    let howManyZeros = currentBoard.length - currentBoard[i].length;
+    let repeatZerosArr = '0'.repeat(howManyZeros).split('');
+    if(direction === 'left'){
+      let resultArr = [...currentBoard[i], ...repeatZerosArr];
+      currentBoard[i] = resultArr;
+    }
+    else if(direction === 'right'){
+      let resultArr = [...repeatZerosArr, ...currentBoard[i]];
+      currentBoard[i] = resultArr;
     }
   }
 
-  return newBoard;
+  console.log(currentBoard)
+  return currentBoard;
 };
 
 export default nonZeroAdderHorizontal;
