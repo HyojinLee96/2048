@@ -20,12 +20,11 @@ const nonZeroAdderHorizontal = (prevBoard, direction) => {
         }
       }
       let countZeros = currentBoard.length - currentBoard[rowNum].length;
-      console.log(countZeros, currentBoard[rowNum]);
       for (let i = 0; i < countZeros; i++) {
         currentBoard[rowNum].push(0);
       }
     } else if (direction === "right") {
-      for (let i = row.length - 1; i <= 0; i--) {
+      for (let i = row.length - 1; i >= 0; i--) {
         if (row[i] === row[i - 1]) {
           currentBoard[rowNum].unshift(row[i] * 2);
           i--;
@@ -34,27 +33,16 @@ const nonZeroAdderHorizontal = (prevBoard, direction) => {
         }
       }
       let countZeros = currentBoard.length - currentBoard[rowNum].length;
-      console.log(countZeros, currentBoard[rowNum]);
       for (let i = 0; i < countZeros; i++) {
         currentBoard[rowNum].unshift(0);
       }
     }
   };
 
-  // 왼쪽을 눌렀을 경우
-  if (direction === "left") {
-    filterAndAdd(firstRowFiltered, 0, direction);
-    filterAndAdd(secondRowFiltered, 1, direction);
-    filterAndAdd(thirdRowFiltered, 2, direction);
-    filterAndAdd(fourthRowFiltered, 3, direction);
-  }
-
-  if (direction === "right") {
-    filterAndAdd(firstRowFiltered, 0, direction);
-    filterAndAdd(secondRowFiltered, 1, direction);
-    filterAndAdd(thirdRowFiltered, 2, direction);
-    filterAndAdd(fourthRowFiltered, 3, direction);
-  }
+  filterAndAdd(firstRowFiltered, 0, direction);
+  filterAndAdd(secondRowFiltered, 1, direction);
+  filterAndAdd(thirdRowFiltered, 2, direction);
+  filterAndAdd(fourthRowFiltered, 3, direction);
 
   // 위에서 걸러진 currentBoard를 this.state.board에 재할당 해줄 newBoard에 넣는데 값이 있으면 넣고 없다면 0을 넣는다.
   // 왼쪽을 눌렀을 때 보드의 앞쪽에 currentBoard[i][j] 숫자를 넣고 나머지는 0을 넣는다.

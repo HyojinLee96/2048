@@ -86,22 +86,28 @@ class App extends Component {
         this.setState({
           board: newBoard,
         });
-        // this.addNewNumber();
+        this.addNewNumber();
       } else if (e.keyCode === 38) {
         // up key pressed
         const newBoard = nonZeroAdderVertical(this.state.board, "up");
         this.setState({
           board: newBoard,
         });
-        // this.addNewNumber();
+        this.addNewNumber();
       } else if (e.keyCode === 39) {
         // right key pressed
         const newBoard = nonZeroAdderHorizontal(this.state.board, "right");
         this.setState({
           board: newBoard,
         });
+        this.addNewNumber();
       } else if (e.keyCode === 40) {
         // down key pressed
+        const newBoard = nonZeroAdderVertical(this.state.board, "down");
+        this.setState({
+          board: newBoard,
+        });
+        this.addNewNumber();
       }
     }
     // this.setState({ board: currentBoard });
