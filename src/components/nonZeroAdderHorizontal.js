@@ -57,3 +57,13 @@ const nonZeroAdderHorizontal = (prevBoard, direction) => {
 };
 
 export default nonZeroAdderHorizontal;
+
+// for (let i = 0; i < currentBoard.length; i++) {
+//   if (direction === "left") {
+//     let howManyZeros = currentBoard.length - currentBoard[i].length;
+//     currentBoard[i].push(0); // howManyZero 숫자 만큼 한다.
+//   }
+// }
+
+// [4, 2] -> [4, 2, 0, 0]
+//       -> [0, 0, 4, 2]

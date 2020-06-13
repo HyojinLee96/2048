@@ -86,12 +86,14 @@ class App extends Component {
         this.setState({
           board: newBoard,
         });
+        this.addNewNumber();
       } else if (e.keyCode === 38) {
         // up key pressed
         const newBoard = nonZeroAdderVertical(this.state.board);
         this.setState({
           board: newBoard,
         });
+        this.addNewNumber();
       } else if (e.keyCode === 39) {
         // right key pressed
         console.log("right key pressed!");
