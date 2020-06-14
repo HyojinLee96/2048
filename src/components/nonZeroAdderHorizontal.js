@@ -20,13 +20,11 @@ const nonZeroAdderHorizontal = (prevBoard, direction) => {
         }
       }
       let countZeros = currentBoard.length - currentBoard[rowNum].length;
-      console.log(countZeros, currentBoard[rowNum]);
       for (let i = 0; i < countZeros; i++) {
         currentBoard[rowNum].push(0);
       }
     } else if (direction === "right") {
-      for (let i = row.length - 1; i <= 0; i--) {
-        console.log(i)
+      for (let i = row.length - 1; i >= 0; i--) {
         if (row[i] === row[i - 1]) {
           currentBoard[rowNum].unshift(row[i] * 2);
           i--;
@@ -35,13 +33,11 @@ const nonZeroAdderHorizontal = (prevBoard, direction) => {
         }
       }
       let countZeros = currentBoard.length - currentBoard[rowNum].length;
-      console.log(countZeros, currentBoard[rowNum]);
       for (let i = 0; i < countZeros; i++) {
         currentBoard[rowNum].unshift(0);
       }
     }
   };
-
 
   filterAndAdd(firstRowFiltered, 0, direction);
   filterAndAdd(secondRowFiltered, 1, direction);
