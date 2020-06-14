@@ -4,8 +4,8 @@ import "./App.css";
 import Row from "./Row";
 import LodingAni from "./LodingAni";
 import StartBtn from "./StartBtn";
-import nonZeroAdderHorizontal from "./nonZeroAdderHorizontal";
-import nonZeroAdderVertical from "./nonZeroAdderVertical";
+import nonZeroAdderHorizontal from "../functions/nonZeroAdderHorizontal";
+import nonZeroAdderVertical from "../functions/nonZeroAdderVertical";
 
 class App extends Component {
   state = {
