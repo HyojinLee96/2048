@@ -58,7 +58,7 @@ table {
 
 .cell + .cell {margin-left: 2.5%;}
 
-.cell.currentCell {background: rgb(253, 255, 147);}
+/* .cell.currentCell {background: rgb(253, 255, 147);} */
 
 .cellValue {
   color: rgb(69, 67, 65);
@@ -105,6 +105,7 @@ table {
 }
 
 
+<<<<<<< HEAD
 /* 421이상 859이하 */
 @media screen and (min-width:421px) and (max-width: 859px) {
 
@@ -118,4 +119,48 @@ table {
 /* 1084이상 1400이하 */
 @media screen and (min-width:1084px) and (max-width: 1400px) {
   
+=======
+/* color-value */
+.color-2 {
+  background-color: aliceblue;
+}
+
+.color-4 {
+  background-color: antiquewhite;
+}
+
+.color-8 {
+  background-color: aquamarine;
+}
+
+.color-16 {
+  background-color: bisque;
+}
+
+.color-32 {
+  background-color: blue;
+}
+
+.color-64 {
+  background-color: brown;
+}
+
+.color-128 {
+  background-color: cadetblue;
+}
+
+.color-256 {
+  background-color: chartreuse;
+}
+
+.color-512 {
+  background-color: cyan;
+}
+
+.color-1024 {
+  background-color: gold;
+}
+.color-2048 {
+  background-color: lemonchiffon;
+>>>>>>> 5b241df9c1d3d3f836463ada304915871e406d1f
 }

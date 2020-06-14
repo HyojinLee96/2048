@@ -1,11 +1,11 @@
 import React from "react";
 
 const Cell = ({ cellValue }) => {
-  let cellValueClass = (cellValue === '0' || cellValue === 0)  ? '' : 'currentCell';
+  let cellValueClass = cellValue === 0 ? "" : "currentCell";
 
   return (
-    <td className={`cell ${cellValueClass}`}>
-      <div className='cellValue'>{(cellValue === '0' || cellValue === 0) ? null : cellValue}</div>
+    <td className={`color-${cellValue} cell ${cellValueClass}`}>
+      <div className='cellValue'>{cellValue === 0 ? null : cellValue}</div>
     </td>
   );
 };
