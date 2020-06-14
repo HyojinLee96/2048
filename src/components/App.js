@@ -111,19 +111,9 @@ class App extends Component {
     }
   };
 
-  dummyFunc = () => {
-    this.setState((prevState) => console.log(prevState.board));
-    this.setState((prevState) => {
-      prevState.board[0][0] = 100;
-      return { board: prevState.board };
-    });
-  };
-
   render() {
     return (
       <div className='App' onKeyPress={this.keyPressed}>
-        <button onClick={this.dummyFunc}>testing Dummy</button>
-        <button onClick={this.addNewNumber}>못생긴버튼</button>
         <StartBtn onClickEvent={this.init} />
         <LodingAni />
         <div className='score'>Score : {this.state.score}</div>
