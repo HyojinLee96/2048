@@ -103,3 +103,19 @@ table {
     background-position: 200% 100%;
   }
 }
+
+
+/* 421이상 859이하 */
+@media screen and (min-width:421px) and (max-width: 859px) {
+
+}
+
+/* 860이상 1083이하 */
+@media screen and (min-width:860px) and (max-width: 1083px) {
+
+}
+
+/* 1084이상 1400이하 */
+@media screen and (min-width:1084px) and (max-width: 1400px) {
+  
+}

@@ -4,8 +4,7 @@ import "./App.css";
 import Row from "./Row";
 import LodingAni from "./LodingAni";
 import StartBtn from "./StartBtn";
-import nonZeroAdderHorizontal from "./nonZeroAdderHorizontal";
-import nonZeroAdderVertical from "./nonZeroAdderVertical";
+import moveTile from "../functions/moveTile";
 
 class App extends Component {
   state = {
@@ -82,50 +81,39 @@ class App extends Component {
     if (e.keyCode >= 37 && e.keyCode <= 40) {
       // const currentBoard = [[], [], [], []];
       if (e.keyCode === 37) {
-        const newBoard = nonZeroAdderHorizontal(this.state.board, "left");
+        const newBoard = moveTile(this.state.board, "left");
         this.setState({
           board: newBoard,
         });
         this.addNewNumber();
       } else if (e.keyCode === 38) {
         // up key pressed
-        const newBoard = nonZeroAdderVertical(this.state.board, "up");
+        const newBoard = moveTile(this.state.board, "up");
         this.setState({
           board: newBoard,
         });
         this.addNewNumber();
       } else if (e.keyCode === 39) {
         // right key pressed
-        const newBoard = nonZeroAdderHorizontal(this.state.board, "right");
+        const newBoard = moveTile(this.state.board, "right");
         this.setState({
           board: newBoard,
         });
         this.addNewNumber();
       } else if (e.keyCode === 40) {
         // down key pressed
-        const newBoard = nonZeroAdderVertical(this.state.board, "down");
+        const newBoard = moveTile(this.state.board, "down");
         this.setState({
           board: newBoard,
         });
         this.addNewNumber();
       }
     }
-    // this.setState({ board: currentBoard });
-  };
-
-  dummyFunc = () => {
-    this.setState((prevState) => console.log(prevState.board));
-    this.setState((prevState) => {
-      prevState.board[0][0] = 100;
-      return { board: prevState.board };
-    });
   };
 
   render() {
     return (
       <div className='App' onKeyPress={this.keyPressed}>
-        <button onClick={this.dummyFunc}>testing Dummy</button>
-        <button onClick={this.addNewNumber}>못생긴버튼</button>
         <StartBtn onClickEvent={this.init} />
         <LodingAni />
         <div className='score'>Score : {this.state.score}</div>
