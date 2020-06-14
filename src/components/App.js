@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import { uuid } from "uuidv4";
 import "./App.css";
 import Row from "./Row";
@@ -12,10 +13,28 @@ import { moveTile, rowColConverter } from "../functions/moveTile";
 //        모달 창에 game continue? new game? 등의 버튼 추가
 
 class App extends Component {
-  state = {
-    board: null,
-    score: 0,
-    gameOver: false,
+  constructor() {
+    super();
+    this.state = {
+      board: null,
+      score: 0,
+      gameOver: false,
+      modalIsOpen: false,
+    };
+  }
+
+  openModal = () => {
+    this.setState({
+      modalIsOpen: true,
+    });
+  };
+
+  afterOpenModal = () => {};
+
+  closeModal = () => {
+    this.setState({
+      modalIsOpen: false,
+    });
   };
 
   init = () => {
@@ -125,9 +144,8 @@ class App extends Component {
     if (this.findEmptyCell(this.state.board).length !== 0) {
       return;
     }
-
     for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < 4 - 1; i++) {
+      for (let j = 0; j < 4 - 1; j++) {
         if (this.state.board[i][j] === this.state.board[i][j + 1]) {
           return;
         }
@@ -136,7 +154,7 @@ class App extends Component {
 
     const convertedBoard = rowColConverter(this.state.board);
     for (let i = 0; i < convertedBoard.length; i++) {
-      for (let j = 0; j < convertedBoard.length - 1; i++) {
+      for (let j = 0; j < convertedBoard.length - 1; j++) {
         if (convertedBoard[i][j] === convertedBoard[i][j + 1]) {
           return;
         }
@@ -151,6 +169,7 @@ class App extends Component {
   render() {
     return (
       <div className='App' onKeyPress={this.keyPressed}>
+        <button onClick={this.openModal}>Open Modal</button>
         <StartBtn onClickEvent={this.init} />
         <LodingAni />
         <div className='score'>Score : {this.state.score}</div>
