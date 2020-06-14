@@ -4,12 +4,18 @@ import "./App.css";
 import Row from "./Row";
 import LodingAni from "./LodingAni";
 import StartBtn from "./StartBtn";
-import moveTile from "../functions/moveTile";
+import { moveTile, rowColConverter } from "../functions/moveTile";
+
+// 게임 오버 체크
+// - 모든 방향으로 움직일 수 있는지 없는지 체크하기
+// 점수 2048 도달시 성공 모달 창 띄우기, 게임은 오버가 될때까지 계속할 수 있다.
+//        모달 창에 game continue? new game? 등의 버튼 추가
 
 class App extends Component {
   state = {
     board: null,
     score: 0,
+    gameOver: false,
   };
 
   init = () => {
@@ -49,6 +55,9 @@ class App extends Component {
     const emptyCell = this.findEmptyCell(board);
     const coordinate = emptyCell[Math.floor(Math.random() * emptyCell.length)];
     // 직접 함수 리턴값을 넣어줌
+    if (coordinate === undefined) {
+      return board;
+    }
     board[coordinate[0]][coordinate[1]] = this.randomNumberGenerator();
 
     return board;
@@ -78,6 +87,9 @@ class App extends Component {
   };
 
   moveCells = (e) => {
+    if (this.state.gameOver === true) {
+      return;
+    }
     if (e.keyCode >= 37 && e.keyCode <= 40) {
       // const currentBoard = [[], [], [], []];
       if (e.keyCode === 37) {
@@ -85,30 +97,55 @@ class App extends Component {
         this.setState({
           board: newBoard,
         });
-        this.addNewNumber();
       } else if (e.keyCode === 38) {
         // up key pressed
         const newBoard = moveTile(this.state.board, "up");
         this.setState({
           board: newBoard,
         });
-        this.addNewNumber();
       } else if (e.keyCode === 39) {
         // right key pressed
         const newBoard = moveTile(this.state.board, "right");
         this.setState({
           board: newBoard,
         });
-        this.addNewNumber();
       } else if (e.keyCode === 40) {
         // down key pressed
         const newBoard = moveTile(this.state.board, "down");
         this.setState({
           board: newBoard,
         });
-        this.addNewNumber();
       }
     }
+    this.addNewNumber();
+    this.gameOverHandler();
+  };
+
+  gameOverHandler = () => {
+    if (this.findEmptyCell(this.state.board).length !== 0) {
+      return;
+    }
+
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4 - 1; i++) {
+        if (this.state.board[i][j] === this.state.board[i][j + 1]) {
+          return;
+        }
+      }
+    }
+
+    const convertedBoard = rowColConverter(this.state.board);
+    for (let i = 0; i < convertedBoard.length; i++) {
+      for (let j = 0; j < convertedBoard.length - 1; i++) {
+        if (convertedBoard[i][j] === convertedBoard[i][j + 1]) {
+          return;
+        }
+      }
+    }
+
+    return this.setState({
+      gameOver: true,
+    });
   };
 
   render() {

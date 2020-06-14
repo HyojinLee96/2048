@@ -59,4 +59,4 @@ const rowColConverter = (board) => {
   });
 };
 
-export default moveTile;
+export { moveTile, rowColConverter };
