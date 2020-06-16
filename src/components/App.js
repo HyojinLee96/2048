@@ -169,7 +169,6 @@ class App extends Component {
   render() {
     return (
       <div className='App' onKeyPress={this.keyPressed}>
-        <button onClick={this.openModal}>Open Modal</button>
         <StartBtn onClickEvent={this.init} />
         <LodingAni />
         <div className='score'>Score : {this.state.score}</div>
