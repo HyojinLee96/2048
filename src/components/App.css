@@ -105,21 +105,6 @@ table {
 }
 
 
-<<<<<<< HEAD
-/* 421이상 859이하 */
-@media screen and (min-width:421px) and (max-width: 859px) {
-
-}
-
-/* 860이상 1083이하 */
-@media screen and (min-width:860px) and (max-width: 1083px) {
-
-}
-
-/* 1084이상 1400이하 */
-@media screen and (min-width:1084px) and (max-width: 1400px) {
-  
-=======
 /* color-value */
 .color-2 {
   background-color: aliceblue;
@@ -162,5 +147,4 @@ table {
 }
 .color-2048 {
   background-color: lemonchiffon;
->>>>>>> 5b241df9c1d3d3f836463ada304915871e406d1f
 }
