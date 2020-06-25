@@ -132,7 +132,7 @@ class App extends Component {
     }
     this.addNewNumber();
     this.gameOverHandler();
-    this.gameSuccess();
+    // this.gameSuccess();
   };
 
   gameSuccessHandler = () => {
