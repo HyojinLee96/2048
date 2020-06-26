@@ -24,7 +24,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      openModal : false,
       board: null,
       score: 0,
       gameOver: false,
@@ -45,12 +44,12 @@ class App extends Component {
       return acc + cur.reduce((acc, cur) => acc + cur, 0);
     }, 0);
 
-    this.setState({ 
-      board, 
+    this.setState({
+      board,
       score,
       gameOver: false,
       gameSuccess: false,
-      continue: false
+      continue: false,
     });
   };
 
@@ -146,12 +145,15 @@ class App extends Component {
   };
 
   gameSuccessHandler = () => {
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < 4; j++) {
-        if (this.state.board[i][j] === 2048) {
-          this.setState({
-            gameSuccess: true,
-          });
+    if (!this.state.continue) {
+      for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+          if (this.state.board[i][j] === 2048) {
+            this.setState({
+              gameSuccess: true,
+            });
+            return;
+          }
         }
       }
     }
@@ -187,36 +189,46 @@ class App extends Component {
     });
   };
 
-  closeHandler = () => {
-    this.setState({
-      gameOver: false,
-      gameSuccess: false
-    })
-  }
+  closeOrContinueHandler = (msg) => {
+    if (msg === "Success!") {
+      // 2048을 성공적으로 달성했고, Continue를 하고싶다면
+      this.setState({
+        continue: true,
+        gameSuccess: false,
+      });
+    }
+
+    if (msg === "Game Over!") {
+      // 게임이 끝났고 그냥 모달창을 닫고싶다면
+      this.setState({
+        gameOver: false,
+      });
+      // 이곳에서 보드 띄우게끔 해주는 CSS 삽입하기
+    }
+  };
 
   render() {
     return (
       <div className='App' onKeyPress={this.keyPressed}>
-        {this.state.gameOver || this.state.gameSuccess ?
+        {this.state.gameOver || this.state.gameSuccess ? (
           <Modal
-            continue={this.state.continue}
+            closeOrContinue={this.closeOrContinueHandler}
             gameOver={this.state.gameOver}
-            gameSuccess={this.state.gameSuccess}
             newGame={this.init}
-            openModal={this.state.openModal}
-            closeHandler={this.closeHandler}
-          /> :
+          />
+        ) : (
           <React.Fragment>
-            <button onClick={this.openModal}>Open Modal</button>
             <StartBtn onClickEvent={this.init} />
             <LodingAni />
             <div className='score'>Score : {this.state.score}</div>
             <table>
               {this.state.board &&
-                this.state.board.map((row, i) => <Row key={uuid()} row={row} />)}
+                this.state.board.map((row, i) => (
+                  <Row key={uuid()} row={row} />
+                ))}
             </table>
           </React.Fragment>
-        }
+        )}
       </div>
     );
   }

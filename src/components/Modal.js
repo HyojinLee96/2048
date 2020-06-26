@@ -1,26 +1,21 @@
-import React from 'react';
-import './Modal.css';
+import React from "react";
+import "./Modal.css";
 
 const Modal = (props) => {
-  let a = document.querySelector('.container')
-  a.classList.add('active')
-  let modalClick = (e) => {
-    let parent = e.target.parentNode;
-    parent.classList === 'modal' ? parent.classList.add('active') : parent.classList.remove('active');
-    console.log(document.querySelector('.container'))
-    props.closeHandler();
-  }
+  let gameStatus = props.gameOver ? "Game Over!" : "Success!";
 
   return (
-    <div className={props.gameOver || props.gameSuccess ? 'modal active' : 'modal'}>
-      <p>{props.gameOver ? 'Game Over!' : 'Success!'}</p> 
-      <button 
-        className={props.gameOver ? 'closeBtn' : 'ContinueBtn'}
-        onClick={(e) => modalClick(e)}
+    <div>
+      <p>{gameStatus}</p>
+      <button
+        className={props.gameOver ? "closeBtn" : "ContinueBtn"}
+        onClick={() => props.closeOrContinue(gameStatus)}
       >
-        {props.gameOver ? 'close' : 'Continue'}
+        {gameStatus === "Game Over" ? "Close" : "Continue"}
       </button>
-      <button className="newGameBtn" onClick={() => props.newGame()}>New Game</button>
+      <button className='newGameBtn' onClick={() => props.newGame()}>
+        New Game
+      </button>
     </div>
   );
 };
