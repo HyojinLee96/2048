@@ -6,6 +6,7 @@ import LodingAni from "./LodingAni";
 import StartBtn from "./StartBtn";
 import { moveTile, rowColConverter } from "../functions/moveTile";
 import Modal from "./Modal";
+import Alert from './alert';
 
 // 필립님 안녕하세용 오늘도 수고가 많으쎄여
 // 성공과 실패에 따라 보여 줄 메세지를 영어로 쓰려는데 내 영어는 7세수준인가봐여
@@ -33,6 +34,9 @@ class App extends Component {
   }
 
   init = () => {
+    // 바로 moveCells 로 바인딩
+    document.body.addEventListener("keydown", this.moveCells);
+
     let board = [
       [0, 0, 0, 0],
       [0, 0, 0, 0],
@@ -82,13 +86,6 @@ class App extends Component {
 
     return board;
   };
-
-  componentDidMount() {
-    // 바로 moveCells 로 바인딩
-    document.body.addEventListener("keydown", this.moveCells);
-    // mount될시 init실행
-    this.init();
-  }
 
   // 약간 맘에 안듬  -> 나도 맘에 안듬!!!!
   addNewNumber = () => {
@@ -210,25 +207,30 @@ class App extends Component {
   render() {
     return (
       <div className='App' onKeyPress={this.keyPressed}>
+        <Alert />
         {this.state.gameOver || this.state.gameSuccess ? (
-          <Modal
-            closeOrContinue={this.closeOrContinueHandler}
-            gameOver={this.state.gameOver}
-            newGame={this.init}
-          />
-        ) : (
           <React.Fragment>
-            <StartBtn onClickEvent={this.init} />
-            <LodingAni />
-            <div className='score'>Score : {this.state.score}</div>
-            <table>
-              {this.state.board &&
-                this.state.board.map((row, i) => (
-                  <Row key={uuid()} row={row} />
-                ))}
-            </table>
+            <div className="bg"></div>
+            <Modal
+              closeOrContinue={this.closeOrContinueHandler}
+              gameOver={this.state.gameOver}
+              newGame={this.init}
+              score={this.state.score}
+            />
           </React.Fragment>
+        ) : ( <React.Fragment/>
         )}
+        <React.Fragment>
+        <StartBtn onClickEvent={this.init} />
+        <LodingAni />
+        <div className='score'>Score : {this.state.score}</div>
+        <table>
+          {this.state.board &&
+            this.state.board.map((row, i) => (
+              <Row key={uuid()} row={row} />
+            ))}
+        </table>
+          </React.Fragment>
       </div>
     );
   }

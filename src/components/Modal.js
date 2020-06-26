@@ -5,17 +5,25 @@ const Modal = (props) => {
   let gameStatus = props.gameOver ? "Game Over!" : "Success!";
 
   return (
-    <div>
-      <p>{gameStatus}</p>
-      <button
-        className={props.gameOver ? "closeBtn" : "ContinueBtn"}
+    <div className="modal">
+      <p className="messages">{gameStatus}</p>
+      <p className="score modalScore">Score : {props.score}</p>
+      <div 
+        className={props.gameOver ? "button-main bothBtn closeBtn" : "button-main bothBtn ContinueBtn"}
         onClick={() => props.closeOrContinue(gameStatus)}
       >
-        {gameStatus === "Game Over" ? "Close" : "Continue"}
-      </button>
-      <button className='newGameBtn' onClick={() => props.newGame()}>
-        New Game
-      </button>
+        <div class="button-inside">
+          <h1>{gameStatus === "Game Over!" ? "Close" : "Continue"}</h1>
+        </div>
+      </div>
+      <div
+        className='button-main newGameBtn'
+        onClick={() => props.newGame()}
+      >
+        <div class="button-inside">
+          <h1>New Game</h1>
+        </div>
+      </div>
     </div>
   );
 };
