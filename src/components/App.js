@@ -100,45 +100,46 @@ class App extends Component {
   };
 
   moveCells = (e) => {
-    if (this.state.gameOver === true) {
-      return;
-    }
     if (e.keyCode >= 37 && e.keyCode <= 40) {
-      // const currentBoard = [[], [], [], []];
-      if (e.keyCode === 37) {
-        const newBoard = moveTile(this.state.board, "left");
+      if (this.state.gameOver === true) {
+        return;
+      }
+
+      let keyCodeObj = {
+        37: "left",
+        38: "up",
+        39: "right",
+        40: "down",
+      };
+
+      const newBoard = moveTile(this.state.board, keyCodeObj[e.keyCode]);
+      let moved = this.moveCheckHandler(newBoard);
+      if (moved === false) {
         this.setState({
           board: newBoard,
         });
-      } else if (e.keyCode === 38) {
-        // up key pressed
-        const newBoard = moveTile(this.state.board, "up");
-        this.setState({
-          board: newBoard,
-        });
-      } else if (e.keyCode === 39) {
-        // right key pressed
-        const newBoard = moveTile(this.state.board, "right");
-        this.setState({
-          board: newBoard,
-        });
-      } else if (e.keyCode === 40) {
-        // down key pressed
-        const newBoard = moveTile(this.state.board, "down");
-        this.setState({
-          board: newBoard,
-        });
+        this.addNewNumber();
+        this.gameOverHandler();
+        this.gameSuccessHandler();
       }
     }
-    this.addNewNumber();
-    this.gameOverHandler();
-    // this.gameSuccess();
+  };
+
+  moveCheckHandler = (newBoard) => {
+    for (let i = 0; i < this.state.board.length; i++) {
+      for (let j = 0; j < this.state.board.length; j++) {
+        if (this.state.board[i][j] !== newBoard[i][j]) {
+          return false;
+        }
+      }
+    }
+    return true;
   };
 
   gameSuccessHandler = () => {
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 4; j++) {
-        if (this.state.board[i][j] === 2048) {
+        if (this.state.board[i][j] === 32) {
           this.setState({
             gameSuccess: true,
           });
