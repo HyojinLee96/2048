@@ -100,9 +100,6 @@ class App extends Component {
   };
 
   moveCells = (e) => {
-    if (this.state.gameOver === true) {
-      return;
-    }
     if (e.keyCode >= 37 && e.keyCode <= 40) {
       // const currentBoard = [[], [], [], []];
       if (e.keyCode === 37) {
@@ -132,7 +129,6 @@ class App extends Component {
     }
     this.addNewNumber();
     this.gameOverHandler();
-    this.gameSuccess();
   };
 
   gameSuccessHandler = () => {
