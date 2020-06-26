@@ -1,0 +1,15 @@
+.modal.active ~ table {
+  display: inline-block;
+}
+
+/* .modal.close ~ table {
+  display: inline-block;
+} */
+/* 
+.modal.active {
+  display: block;
+} */
+
+.modal {
+  display: block;
+}

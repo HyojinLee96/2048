@@ -52,9 +52,8 @@ const moveTile = (prevBoard, direction) => {
   return currentBoard;
 };
 
-
 // [2,0,4,2]
-// [2,0,4,4]   이 보드를 업 다운 키였을 때 세로를 계산하기보다는 보드를 회전해서 row로 만든 후 계산하기 위해 
+// [2,0,4,4]   이 보드를 업 다운 키였을 때 세로를 계산하기보다는 보드를 회전해서 row로 만든 후 계산하기 위해
 // [0,0,0,2]   rowColConverter를 사용함
 // [2,0,4,4]
 const rowColConverter = (board) => {

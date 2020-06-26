@@ -5,7 +5,7 @@ import Row from "./Row";
 import LodingAni from "./LodingAni";
 import StartBtn from "./StartBtn";
 import { moveTile, rowColConverter } from "../functions/moveTile";
-import Modal from './Modal';
+import Modal from "./Modal";
 
 // 필립님 안녕하세용 오늘도 수고가 많으쎄여
 // 성공과 실패에 따라 보여 줄 메세지를 영어로 쓰려는데 내 영어는 7세수준인가봐여
@@ -24,10 +24,12 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      openModal : false,
       board: null,
       score: 0,
       gameOver: false,
       gameSuccess: false,
+      continue: false,
     };
   }
 
@@ -43,7 +45,13 @@ class App extends Component {
       return acc + cur.reduce((acc, cur) => acc + cur, 0);
     }, 0);
 
-    this.setState({ board, score });
+    this.setState({ 
+      board, 
+      score,
+      gameOver: false,
+      gameSuccess: false,
+      continue: false
+    });
   };
 
   randomNumberGenerator = () => {
@@ -101,34 +109,40 @@ class App extends Component {
 
   moveCells = (e) => {
     if (e.keyCode >= 37 && e.keyCode <= 40) {
-      // const currentBoard = [[], [], [], []];
-      if (e.keyCode === 37) {
-        const newBoard = moveTile(this.state.board, "left");
+      if (this.state.gameOver === true) {
+        return;
+      }
+
+      let keyCodeObj = {
+        37: "left",
+        38: "up",
+        39: "right",
+        40: "down",
+      };
+
+      const newBoard = moveTile(this.state.board, keyCodeObj[e.keyCode]);
+      let moved = this.moveCheckHandler(newBoard);
+      if (moved === false) {
         this.setState({
           board: newBoard,
         });
-      } else if (e.keyCode === 38) {
-        // up key pressed
-        const newBoard = moveTile(this.state.board, "up");
-        this.setState({
-          board: newBoard,
-        });
-      } else if (e.keyCode === 39) {
-        // right key pressed
-        const newBoard = moveTile(this.state.board, "right");
-        this.setState({
-          board: newBoard,
-        });
-      } else if (e.keyCode === 40) {
-        // down key pressed
-        const newBoard = moveTile(this.state.board, "down");
-        this.setState({
-          board: newBoard,
-        });
+        this.addNewNumber();
+        this.gameOverHandler();
+        this.gameSuccessHandler();
       }
     }
-    this.addNewNumber();
-    this.gameOverHandler();
+  };
+
+  // this.state.board와 newBoard가 같지 않을 때, 움직일 수 없다면 return 값을 전달
+  moveCheckHandler = (newBoard) => {
+    for (let i = 0; i < this.state.board.length; i++) {
+      for (let j = 0; j < this.state.board.length; j++) {
+        if (this.state.board[i][j] !== newBoard[i][j]) {
+          return false;
+        }
+      }
+    }
+    return true;
   };
 
   gameSuccessHandler = () => {
@@ -141,7 +155,7 @@ class App extends Component {
         }
       }
     }
-  }
+  };
 
   gameOverHandler = () => {
     // findEmptyCell에 빈 칸이 하나라도 있다면 리턴
@@ -167,29 +181,42 @@ class App extends Component {
         }
       }
     }
-    
+
     return this.setState({
       gameOver: true,
     });
   };
 
+  closeHandler = () => {
+    this.setState({
+      gameOver: false,
+      gameSuccess: false
+    })
+  }
+
   render() {
     return (
       <div className='App' onKeyPress={this.keyPressed}>
-        <Modal 
-          gameSuccess={this.state.gameSuccess}
-          gameOver={this.state.gameOver}
-          gameSuccessHandler={this.gameSuccessHandler.bind(this)}
-          gameOverHandler={this.gameOverHandler.bind(this)}
-        />
-        <button onClick={this.openModal}>Open Modal</button>
-        <StartBtn onClickEvent={this.init} />
-        <LodingAni />
-        <div className='score'>Score : {this.state.score}</div>
-        <table>
-          {this.state.board &&
-            this.state.board.map((row, i) => <Row key={uuid()} row={row} />)}
-        </table>
+        {this.state.gameOver || this.state.gameSuccess ?
+          <Modal
+            continue={this.state.continue}
+            gameOver={this.state.gameOver}
+            gameSuccess={this.state.gameSuccess}
+            newGame={this.init}
+            openModal={this.state.openModal}
+            closeHandler={this.closeHandler}
+          /> :
+          <React.Fragment>
+            <button onClick={this.openModal}>Open Modal</button>
+            <StartBtn onClickEvent={this.init} />
+            <LodingAni />
+            <div className='score'>Score : {this.state.score}</div>
+            <table>
+              {this.state.board &&
+                this.state.board.map((row, i) => <Row key={uuid()} row={row} />)}
+            </table>
+          </React.Fragment>
+        }
       </div>
     );
   }
