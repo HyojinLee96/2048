@@ -38,8 +38,8 @@ class App extends Component {
     document.body.addEventListener("keydown", this.moveCells);
 
     let board = [
-      [128, 16, 64, 0],
-      [8, 256, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
       [0, 0, 0, 0],
       [0, 0, 0, 0],
     ];
