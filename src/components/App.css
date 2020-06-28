@@ -132,11 +132,12 @@ table {
 }
 
 .color-128 {
-  background-color: rgb(255, 247, 154);
+  background-color: rgb(255, 25, 133);
 }
+.color-128 > .cellValue {color: #fff;}
 
 .color-256 {
-  background-color: rgb(191, 255, 197);
+  background-color: rgb(147, 255, 158);
 }
 
 .color-512 {

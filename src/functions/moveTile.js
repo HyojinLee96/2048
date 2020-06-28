@@ -52,6 +52,8 @@ const moveTile = (prevBoard, direction) => {
   return currentBoard;
 };
 
+// 있는 코드를 재활용하고 싶은 마음에 돌려서 하는 방법을 선택  -> 이렇게 함으로써 left, up, right, down을 하나하나 분기처리하지 않아도 된다.
+
 // [2,0,4,2]
 // [2,0,4,4]   이 보드를 업 다운 키였을 때 세로를 계산하기보다는 보드를 회전해서 row로 만든 후 계산하기 위해
 // [0,0,0,2]   rowColConverter를 사용함
