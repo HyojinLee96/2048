@@ -6,7 +6,7 @@ import LodingAni from "./LodingAni";
 import StartBtn from "./StartBtn";
 import { moveTile, rowColConverter } from "../functions/moveTile";
 import Modal from "./Modal";
-// import Alert from './alert';
+import Alert from "./alert";
 
 // 필립님 안녕하세용 오늘도 수고가 많으쎄여
 // 성공과 실패에 따라 보여 줄 메세지를 영어로 쓰려는데 내 영어는 7세수준인가봐여
@@ -210,7 +210,7 @@ class App extends Component {
   render() {
     return (
       <div className='App' onKeyPress={this.keyPressed}>
-        {/* <Alert /> */}
+        <Alert />
         {this.state.gameOver || this.state.gameSuccess ? (
           <React.Fragment>
             <div className='bg'></div>
