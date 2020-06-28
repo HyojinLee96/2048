@@ -116,39 +116,49 @@ table {
 }
 
 .color-8 {
-  background-color: aquamarine;
+  background-color: rgb(196, 255, 235);
 }
 
 .color-16 {
-  background-color: bisque;
+  background-color: rgb(253, 255, 208);
 }
 
 .color-32 {
-  background-color: blue;
+  background-color: rgb(204, 204, 255);
 }
 
 .color-64 {
-  background-color: brown;
+  background-color: rgb(255, 181, 181);
 }
 
 .color-128 {
-  background-color: cadetblue;
+  background-color: rgb(255, 247, 154);
 }
 
 .color-256 {
-  background-color: chartreuse;
+  background-color: rgb(191, 255, 197);
 }
 
 .color-512 {
-  background-color: cyan;
+  background-color: rgb(106, 238, 255);
 }
 
 .color-1024 {
-  background-color: gold;
+  background-color: rgb(247, 161, 255);
 }
 .color-2048 {
-  background-color: lemonchiffon;
+  background-color: rgb(255, 0, 0);
 }
+.color-2048 > .cellValue {color: #fff;}
+
+.color-4096 {
+  background-color: rgb(13, 255, 0);
+}
+
+.color-8192 {
+  background-color: rgb(0, 17, 255);
+}
+.color-8192 > .cellValue {color: #fff;}
 
 .bg {
   position: absolute;
@@ -183,9 +193,9 @@ table {
 /* 860이상 1083이하 */
 @media screen and (min-width:860px) and (max-width: 1083px) {
   table {
-    bottom: 20%;
+    bottom: 10%;
   }
-  .cell {width: 150px; height: 150px;}
+  .cell {width: 100px; height: 100px;}
   .score {font-size: 40px;}
 }
 
