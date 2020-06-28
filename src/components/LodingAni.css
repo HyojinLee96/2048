@@ -1,7 +1,8 @@
 .watch-face {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 51.5%;
+  /* transform: translateX(-50%); */
   margin-left: -5%;
   height: 125px;
   width: 125px;
@@ -114,5 +115,23 @@
   }
   100% {
     transform: translate(35px, -50px);
+  }
+}
+
+
+/* 반응형 css */
+
+/* 421 이하 */
+@media screen and (max-width: 420px) {
+  .watch-face {
+    left: 40%;
+  }
+}
+
+/* 421이상 859이하 */
+@media screen and (min-width:421px) and (max-width: 859px) {
+  .watch-face {
+    top: 45%;
+    left: 47%;
   }
 }

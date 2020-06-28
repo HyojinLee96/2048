@@ -14,7 +14,7 @@
 
 .btn {
   margin: 0 auto;
-  width: var(--btn-w);
+  width: 10em;
   color: var(--primary);
   border: .15em solid var(--primary);
   border-radius: 5em;

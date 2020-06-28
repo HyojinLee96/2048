@@ -157,3 +157,38 @@ table {
   z-index: 9;
   opacity: .7;
 }
+
+
+/* 반응형 css */
+
+/* 420 이하 */
+@media screen and (max-width: 420px) {
+  .score {
+    top: 15%;
+    right: 35%;
+    font-size: 25px;
+    margin: 0;
+  }
+  .cell {width: 80px; height: 80px;}
+}
+
+/* 421이상 859이하 */
+@media screen and (min-width:421px) and (max-width: 859px) {
+  .score {
+    top: 15%;
+    right: 10%;
+  }
+}
+
+/* 860이상 1083이하 */
+@media screen and (min-width:860px) and (max-width: 1083px) {
+  table {
+    bottom: 20%;
+  }
+  .cell {width: 150px; height: 150px;}
+  .score {font-size: 40px;}
+}
+
+	
+
+ 
