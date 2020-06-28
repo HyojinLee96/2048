@@ -13,7 +13,7 @@ const Modal = (props) => {
         onClick={() => props.closeOrContinue(gameStatus)}
       >
         <div class="button-inside">
-          <h1>{gameStatus === "Game Over!" ? "Close" : "Continue"}</h1>
+          <h1 className="modalMessages">{gameStatus === "Game Over!" ? "Close" : "Continue"}</h1>
         </div>
       </div>
       <div
@@ -21,7 +21,7 @@ const Modal = (props) => {
         onClick={() => props.newGame()}
       >
         <div class="button-inside">
-          <h1>New Game</h1>
+          <h1 class="modalMessages">New</h1>
         </div>
       </div>
     </div>

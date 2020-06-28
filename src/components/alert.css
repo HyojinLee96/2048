@@ -1,12 +1,13 @@
 .sideMenu {
+	font-family: 'Nanum Pen Script', cursive;
 	overflow: hidden;
 	position: absolute;
 	top: 0;
 	left: 0;
 	z-index: 103;
-	transform: translateX(-300px);
+	transform: translateX(-350px);
 	height: 100%;
-	width: 400px;
+	width: 500px;
 	transition: all 800ms cubic-bezier(.8, 0, .33, 1);
 	border-radius: 0% 0% 100% 50%;
 }
@@ -101,28 +102,48 @@
 	color: #d9524a;
 }
 
-p {
-  margin-top: 20%;
+.ruleParagraph {
+	margin-top: 20%;
 }
 
-h1 {
-  font-size: 60px;
+.rule {
+	margin: 0;
+  font-size: 100px;
   font-weight: 700;
   letter-spacing: 2px;
   color: #d9524a;
 }
 
-span {
+.title {
+	letter-spacing: 1px;
   display: block;
   margin-bottom: 2%;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 500;
 }
 
-strong{
-  font-size: 25px;
+.title > strong{
   color: #d9524a;
 }
 
-span + span {margin-top: 10%;}
+.title + .title {margin-top: 10%;}
 
+
+/* 반응형 css */
+
+/* 420 이하 */
+@media screen and (max-width: 420px) {
+  .sideMenu {
+		transform: translateX(-270px);
+		width: 90%;
+	}
+	.rule {font-size: 80px;}
+	.title {font-size: 20px;}
+}
+
+/* 421이상 859이하 */
+@media screen and (min-width:421px) and (max-width: 859px) {
+	.sideMenu {
+		transform: translateX(-400px);
+	}
+}
