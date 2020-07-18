@@ -1,25 +1,12 @@
-import React, { Component } from "react";
-import { uuid } from "uuidv4";
-import "./App.css";
-import Row from "./Row";
-import LodingAni from "./LodingAni";
-import StartBtn from "./StartBtn";
-import { moveTile, rowColConverter } from "../functions/moveTile";
-import Modal from "./Modal";
-import Alert from "./alert";
-
-// 필립님 안녕하세용 오늘도 수고가 많으쎄여
-// 성공과 실패에 따라 보여 줄 메세지를 영어로 쓰려는데 내 영어는 7세수준인가봐여
-// 밑에 17번째 줄이랑 20번째 줄에 고오오오급지게 써주세여.......
-// 그럼 저는 이만 갈게여 나 오늘 이거 게임하다 솔로데이 다 날려먹었어여 헿ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ너므 재밌자낳ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ
-
-// 게임오버가 되면 모달창이 뜬다.
-
-// 2048에 도달하여 성공했을 시 "Success!" 메세지 보여주고
-// 버튼으로는 더 높은 점수에 도전할 것인지 선택을 위해 continue 버튼과 new Game 버튼 생성
-
-// 게임에 져서 게임오버가 됬을 시 "Game Over" 메세지 보여주고
-// 버튼으로는 new Game 버튼과 close 버튼 생성
+import React, { Component } from 'react';
+import { uuid } from 'uuidv4';
+import './App.css';
+import Row from './Row';
+import LodingAni from './LodingAni';
+import StartBtn from './StartBtn';
+import { moveTile, rowColConverter } from '../functions/moveTile';
+import Modal from './Modal';
+import Alert from './alert';
 
 class App extends Component {
   constructor() {
@@ -34,8 +21,7 @@ class App extends Component {
   }
 
   init = () => {
-    // 바로 moveCells 로 바인딩
-    document.body.addEventListener("keydown", this.moveCells);
+    document.body.addEventListener('keydown', this.moveCells);
 
     let board = [
       [0, 0, 0, 0],
@@ -87,7 +73,6 @@ class App extends Component {
     return board;
   };
 
-  // 약간 맘에 안듬  -> 나도 맘에 안듬!!!!
   addNewNumber = () => {
     // randomCoordinate 함수가 state있는걸
     // board[coordinate[0]][coordinate[1]] = randomNumber; 로 직접 변경을 함
@@ -110,10 +95,10 @@ class App extends Component {
       }
 
       let keyCodeObj = {
-        37: "left",
-        38: "up",
-        39: "right",
-        40: "down",
+        37: 'left',
+        38: 'up',
+        39: 'right',
+        40: 'down',
       };
 
       const newBoard = moveTile(this.state.board, keyCodeObj[e.keyCode]);
@@ -180,14 +165,14 @@ class App extends Component {
         }
       }
     }
-
+    document.body.removeEventListener('keydown', this.moveCells);
     return this.setState({
       gameOver: true,
     });
   };
 
   closeOrContinueHandler = (msg) => {
-    if (msg === "Success!") {
+    if (msg === 'Success!') {
       // 2048을 성공적으로 달성했고, Continue를 하고싶다면
       this.setState({
         continue: true,
@@ -195,7 +180,7 @@ class App extends Component {
       });
     }
 
-    if (msg === "Game Over!") {
+    if (msg === 'Game Over!') {
       // 게임이 끝났고 그냥 모달창을 닫고싶다면
       this.setState({
         gameOver: false,
@@ -204,8 +189,9 @@ class App extends Component {
     }
   };
 
-  // change the color of the numbers in the tiles
-  // game stop button - change the color
+  setScoreToZero = () => {
+    this.setState({ score: 0 });
+  };
 
   render() {
     return (
@@ -221,16 +207,13 @@ class App extends Component {
               score={this.state.score}
             />
           </React.Fragment>
-        ) : (
-          <React.Fragment />
-        )}
+        ) : null}
         <React.Fragment>
-          <StartBtn onClickEvent={this.init} />
+          <StartBtn onClickEvent={this.init} setScoreToZero={this.setScoreToZero} />
           <LodingAni />
           <div className='score'>Score : {this.state.score}</div>
           <table>
-            {this.state.board &&
-              this.state.board.map((row, i) => <Row key={uuid()} row={row} />)}
+            {this.state.board && this.state.board.map((row, i) => <Row key={uuid()} row={row} />)}
           </table>
         </React.Fragment>
       </div>
