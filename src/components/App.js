@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { uuid } from 'uuidv4';
+import { SwipeEventListener } from 'swipe-event-listener';
 import './App.css';
 import Row from './Row';
 import LodingAni from './LodingAni';
@@ -11,6 +12,24 @@ import Alert from './alert';
 class App extends Component {
   constructor() {
     super();
+    const { swipeArea } = SwipeEventListener({
+      swipeArea: document.querySelector('body'),
+    });
+
+    swipeArea.addEventListener('swipeDown', () => {
+      this.moveCells({ keyCode: 40 });
+    });
+    swipeArea.addEventListener('swipeUp', () => {
+      this.moveCells({ keyCode: 38 });
+    });
+
+    swipeArea.addEventListener('swipeLeft', () => {
+      this.moveCells({ keyCode: 37 });
+    });
+
+    swipeArea.addEventListener('swipeRight', () => {
+      this.moveCells({ keyCode: 39 });
+    });
     this.state = {
       board: null,
       score: 0,
@@ -22,6 +41,7 @@ class App extends Component {
 
   init = () => {
     document.body.addEventListener('keydown', this.moveCells);
+    //swiping options
 
     let board = [
       [0, 0, 0, 0],

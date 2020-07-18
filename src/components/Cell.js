@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const Cell = ({ cellValue }) => {
-  let cellValueClass = cellValue === 0 ? "" : "currentCell";
+  let cellValueClass = cellValue === 0 ? '' : 'currentCell';
 
   return (
     <td className={`color-${cellValue} cell ${cellValueClass}`}>

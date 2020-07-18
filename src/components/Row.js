@@ -1,10 +1,10 @@
-import React from "react";
-import Cell from "./Cell";
-import { uuid } from "uuidv4";
+import React from 'react';
+import Cell from './Cell';
+import { uuid } from 'uuidv4';
 
 const Row = ({ row }) => {
   return (
-    <tr className="row">
+    <tr className='row'>
       {row.map((cell, i) => (
         <Cell key={uuid()} cellValue={cell} />
       ))}
